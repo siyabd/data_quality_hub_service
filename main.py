@@ -41,9 +41,6 @@ class SearchRequest(BaseModel):
 )
 def processDQDimensions(request: CreateRequest):
     connection.insertDataDefitions(request)
-    print(request)
-
-code = "if substring(orgkey,1,3) = '103' then Last_name exists and len(trim(Last_name)) > 1 and Last_name matches_regex "
 
 @app.get(
     "/dq-dimensions",
@@ -63,13 +60,6 @@ def getReferenceTables():
 )
 def getReferenceData(id):
     return connection.getReferenceData(id)
-
-
-# @app.get(
-#     "/health",
-# )
-# def health(response: Response):
-#     return "test"
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=5000)

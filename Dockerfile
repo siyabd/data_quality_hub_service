@@ -1,5 +1,5 @@
 # FROM tools.standardbank.co.za:8093/cib-automation/python-oracle19c-base:1.0.0
-FROM tools.standardbank.co.za:8093/library/python:3.10
+FROM python:Latest
 
    
 WORKDIR /usr/src/app

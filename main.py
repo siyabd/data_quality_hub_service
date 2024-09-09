@@ -3,7 +3,7 @@ import uvicorn
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
-from connection.connection import Connection1
+from connection.connection import Connection1, CreateRequest
 app = FastAPI(title="DQ Dimensions API",docs_url="/doc", redoc_url=None)
 connection = Connection1 ()
 
@@ -22,13 +22,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-class CreateRequest(BaseModel):
-    name: str
-    description: str
-    dimension: int 
-    python: str
-    java: str 
-    c: str 
 
 class ValidateRequest(BaseModel):
     id: str
@@ -43,7 +36,13 @@ class SearchRequest(BaseModel):
     "/validate-dq-dimension"
 )
 def processDQDimensions(request: ValidateRequest):
-    # if(request.)
+    test = "test != {0}"
+    test = test.format(1)
+    print(eval(test))
+    if(eval(test)):
+        print('valid')
+    
+    # i(request.)
     # connection.insertDataDefitions(request)
     print("test")
 
@@ -56,8 +55,12 @@ def processDQDimensions(request: CreateRequest):
 @app.get(
     "/dq-dimensions",
 )
-# searchRequest: SearchRequest
-def getDimensions():
+def getDimensions(name: str | None = None,dimension: str | None = None):
+    print(name)
+    print(dimension)
+    if(name or dimension):
+     return connection.getFilteredDataDefitions(name,dimension)
+    
     return connection.getAllDataDefitions()
 
 @app.get(

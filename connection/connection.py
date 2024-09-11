@@ -34,11 +34,12 @@ class Connection1:
             results.append(dict(zip(columns, row)))
         return results
     # and a.name like COALESCE(%s,a.name)
+    
     def getAllDataDefitions(self):
         self.cursor.execute(
-            "SELECT a.name,a.description,rd.code,a.java,a.c,a.python,a.ref_data_table_id from data_quality_definition a, reference_data rd where a.dimension = rd.ref_id;"
+            "SELECT a.name,a.description,rd.code,a.java,a.c,a.python,a.ref_data_table_id,a.id from data_quality_definition a, reference_data rd where a.dimension = rd.ref_id;"
             )
-        columns = ('name', 'description','dimension', 'java', 'c', 'python','refDataTable')
+        columns = ('name', 'description','dimension', 'java', 'c', 'python','refDataTable','id')
         results = []
         for row in self.cursor.fetchall():
             results.append(dict(zip(columns, row)))

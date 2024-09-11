@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
 from connection.connection import Connection1, CreateRequest
+from models.validateData import default_message, validate_email, validate_gender
 app = FastAPI(title="DQ Dimensions API",docs_url="/doc", redoc_url=None)
 connection = Connection1 ()
 
@@ -36,15 +37,15 @@ class SearchRequest(BaseModel):
     "/validate-dq-dimension"
 )
 def processDQDimensions(request: ValidateRequest):
-    test = "test != {0}"
-    test = test.format(1)
-    print(eval(test))
-    if(eval(test)):
-        print('valid')
+    if(request.id == "3"):
+        genderList = getReferenceData("4")
+        print( validate_gender(genderList,request))
+        return validate_gender(genderList,request)
+    elif(request.id == "1"):
+        return validate_email(request.data)
     
-    # i(request.)
-    # connection.insertDataDefitions(request)
-    print("test")
+    return default_message()
+
 
 @app.post(
     "/add-dq-dimension"
